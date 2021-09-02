@@ -28,19 +28,62 @@
         </div>
     </div>
     <div class="suit-top">
-        <div id="paper">
+        <div id="paper" data-choice="1" onClick="initiateFight(this)">
             <img src="assets/paper.png" alt="" height="200">
         </div>
         <h1 style="color: #E7E0C9; margin: 100px">Vs</h1>
-        <div id="scissors">
+        <div id="scissors" data-choice="2" onClick="initiateFight(this)">
             <img src="assets/Scissors.png" alt="" height="200">
         </div>
     </div>
     <div class="suit-bottom">
-        <div id="rock">
+        <div id="rock" data-choice="3" onClick="initiateFight(this)">
             <img src="assets/rock.png" alt="" height="200">
         </div>
     </div>
 </body>
+
+<script>
+    function initiateFight(element) {
+        const playerChoiceInt = element.getAttribute("data-choice");
+        const playerChoiceString = element.getAttribute("id");
+        const botChoiceInt = getBotChoice();
+        const botChoiceString = botChoiceToString(botChoiceInt);
+        const win = winner(playerChoiceInt, botChoiceInt)
+        window.alert(win + " COM memilih : " + botChoiceString + " dan Player memilih : " + playerChoiceString);
+    }
+
+    function getBotChoice() {
+        const p2 = Math.floor(Math.random() * 3) + 1;
+        return p2;
+    }
+
+    function botChoiceToString(botChoice) {
+        switch (botChoice) {
+            case 1:
+                return "paper";
+                break;
+            case 2:
+                return "scissors";
+                break;
+            case 3:
+                return "rock";
+                break;
+            default:
+                break;
+        }
+    }
+    function winner(player, bot) {
+        player = parseInt(player);
+        bot = parseInt(bot);
+        
+        if (player === bot) return "Draw!";
+        else if(player === 1 && bot === 2) return "You Lose!";
+        else if(player === 2 && bot === 3) return "You Lose!";
+        else if(player === 3 && bot === 1) return "You Lose!";
+        else return "You Win!";
+
+    }
+</script>
 
 </html>
